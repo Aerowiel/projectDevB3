@@ -83,11 +83,8 @@ module.exports.publicRoutes = function () {
                         }
                         else{
                             //id, name, lastname, email, contacts, socketid
-<<<<<<< HEAD
-                           UsersHandler.createUser(userChecking._id, userChecking.name, userChecking.lastname, userChecking.email, [])
-=======
+
                             UsersHandler.createUser(userChecking._id, userChecking.name, userChecking.lastname, userChecking.email, [])
->>>>>>> 08849fe78284fbc2b190c1cbc41af68f4336006f
                             resp.json({
                                 username : userChecking.username,
                                 name : userChecking.name,
