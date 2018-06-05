@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
     express = require('express');
-    connector = require('./../collectionDriver');
+    connector = require('./../utils/collectionDriver');
     bcrypt = require('bcrypt');
 module.exports.publicRoutes = function () {
 
