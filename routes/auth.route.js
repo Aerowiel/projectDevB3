@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
     express = require('express');
     connector = require('./../utils/collectionDriver');
     bcrypt = require('bcrypt');
+
+const UserHandler = require('../utils/UserHandler')
+
 module.exports.publicRoutes = function () {
 
     var schemaUser = new mongoose.Schema({ username: 'string', name: 'string' , email: 'string', password:'string',picture:'string'},{ collection : 'Users' });
@@ -18,7 +21,7 @@ module.exports.publicRoutes = function () {
             saltRounds = 10;
             json ={email : email};
             modelUser.findOne(json, function(err, userChecking){
-                if(err){ 
+                if(err){
                        throw err;
                 }
                 else{
@@ -46,7 +49,7 @@ module.exports.publicRoutes = function () {
                                 });
                             }
                     }
-                    
+
                 }
         });
     });
@@ -56,9 +59,9 @@ module.exports.publicRoutes = function () {
         var email = req.body.email;
             reqpassword = req.body.password;
             json = {email : email};
-        
+
         modelUser.findOne(json, function(err, userChecking){
-            if(err){ 
+            if(err){
                    throw err;
             }
             else{
@@ -74,6 +77,8 @@ module.exports.publicRoutes = function () {
                             throw err;
                         }
                         else{
+                            //id, name, lastname, email, contacts, socketid
+                            UserHandler.createUser(userChecking._id, userChecking.name, userChecking.lastname, userChecking.email, [])
                             resp.json({
                                 username : userChecking.username,
                                 name : userChecking.name,
@@ -85,11 +90,11 @@ module.exports.publicRoutes = function () {
                                 public_id : userChecking.public_id
                             });
                         }
-                      
+
                     });
-                    
+
                 }
-                
+
             }
         });
     });
@@ -100,7 +105,7 @@ module.exports.publicRoutes = function () {
             friendToAdd = req.body.friend;
             json = {email : email};
 
-        
+
 
         modelUser.findOne(json, function(err, userExists){
             if(err){
@@ -132,7 +137,7 @@ module.exports.publicRoutes = function () {
                 }
             }
         });
-    });                                                                                                                                                                                                                                                                                                                       
+    });
     router.post('/getUser', (req, resp, next )=>{
 
         console.log("ok");
@@ -142,7 +147,7 @@ module.exports.publicRoutes = function () {
         console.log(json);
 
         modelUser.findOne(json, function(err, userChecking){
-            if(err){ 
+            if(err){
                    throw err;
             }
             else{
@@ -166,7 +171,7 @@ module.exports.publicRoutes = function () {
                         public_id : userChecking.public_id
                     });
                 }
-                
+
             }
         });
     });
@@ -175,7 +180,7 @@ module.exports.publicRoutes = function () {
         var email = req.body.email;
         var json = { email : email};
         modelUser.findOne(json, function(err, userChecking){
-            if(err){ 
+            if(err){
                    throw err;
             }
             else{
@@ -193,18 +198,18 @@ module.exports.publicRoutes = function () {
                         friendList : userChecking.friendList
                     });
                 }
-                
+
             }
-        }); 
+        });
     });
 
-    cloudinary.config({ 
-        cloud_name: 'kyzer', 
-        api_key: '837624926995455', 
-        api_secret: 'qpeLY8-2udmtIs5BGQUuUAShuts' 
+    cloudinary.config({
+        cloud_name: 'kyzer',
+        api_key: '837624926995455',
+        api_secret: 'qpeLY8-2udmtIs5BGQUuUAShuts'
       });
-    
-      
+
+
     var signature;
 
     router.post('/activeCloudinary',(req, resp, next)=>{
@@ -214,7 +219,7 @@ module.exports.publicRoutes = function () {
 
         base64Img.img('data:image/png;base64,'+imgAsBase64, './uploads', ''+email, function(err, filepath) {
             modelUser.findOne(json, function(err, userExists){
-                if(err){ 
+                if(err){
                        throw err;
                 }
                 else{
@@ -242,14 +247,14 @@ module.exports.publicRoutes = function () {
                                     }
                                 });
                             });
-                        
+
                     }
-                    
+
                 }
             });
-           
+
         });
-        
+
     });
     return router;
 
