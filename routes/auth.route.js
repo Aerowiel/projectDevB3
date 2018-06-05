@@ -4,11 +4,8 @@ var mongoose = require('mongoose');
     bcrypt = require('bcrypt');
     cloudinary = require('cloudinary');
 
-<<<<<<< HEAD
-constUsersHandler = require('./../utils/UsersHandler')
-=======
+
 const UsersHandler = require('./../utils/UsersHandler')
->>>>>>> 08849fe78284fbc2b190c1cbc41af68f4336006f
 
 module.exports.publicRoutes = function () {
 
