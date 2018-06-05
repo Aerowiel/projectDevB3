@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
     bcrypt = require('bcrypt');
     cloudinary = require('cloudinary');
 
-const UserHandler = require('./../utils/UsersHandler')
+constUsersHandler = require('./../utils/UsersHandler')
 
 module.exports.publicRoutes = function () {
 
@@ -79,7 +79,7 @@ module.exports.publicRoutes = function () {
                         }
                         else{
                             //id, name, lastname, email, contacts, socketid
-                            UserHandler.createUser(userChecking._id, userChecking.name, userChecking.lastname, userChecking.email, [])
+                           UsersHandler.createUser(userChecking._id, userChecking.name, userChecking.lastname, userChecking.email, [])
                             resp.json({
                                 username : userChecking.username,
                                 name : userChecking.name,
@@ -295,7 +295,7 @@ module.exports.publicRoutes = function () {
                             });
                         }
                     }
-                    
+
                 }
             });
     });
