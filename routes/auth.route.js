@@ -2,8 +2,9 @@ var mongoose = require('mongoose');
     express = require('express');
     connector = require('./../utils/collectionDriver');
     bcrypt = require('bcrypt');
+    cloudinary = require('cloudinary');
 
-const UserHandler = require('../utils/UserHandler')
+const UserHandler = require('./../utils/UsersHandler')
 
 module.exports.publicRoutes = function () {
 
