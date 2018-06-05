@@ -8,7 +8,6 @@ const indexRoutes = [
     {
         path: "/Login", component: Login
     },
-    { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
 export default indexRoutes;
