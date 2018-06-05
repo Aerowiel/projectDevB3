@@ -123,7 +123,7 @@ module.exports.publicRoutes = function () {
                         friendListUpdated.push(row);
                     });
                     friendListUpdated.push(friendToAdd);
-                    var json = {name : userExists.name,username : userExists.username, email : userExists.email, password : userExists.password,friendList : friendListUpdated, coordinateX : userExists.coordinateX, coordinateY : userExists.coordinateY, localisationActived: userExists.localisationActived };
+                    var json = {name : userExists.name,username : userExists.username, email : userExists.email, password : userExists.password,friendList : friendListUpdated, picture : userExists.picture};
                     modelUser.updateOne(json, function(err, response){
                         if(err){
                             throw err;
@@ -162,12 +162,8 @@ module.exports.publicRoutes = function () {
                         name : userChecking.name,
                         email : userChecking.email,
                         password : userChecking.password,
-                        coordinateX : userChecking.coordinateX,
-                        coordinateY : userChecking.coordinateY,
-                        localisationActived : userChecking.localisationActived,
                         picture : userChecking.picture,
                         friendList: userChecking.friendList,
-                        picture : userChecking.picture,
                         public_id : userChecking.public_id
                     });
                 }
@@ -212,7 +208,7 @@ module.exports.publicRoutes = function () {
 
     var signature;
 
-    router.post('/activeCloudinary',(req, resp, next)=>{
+    router.post('/updateUserPicToCloudinary',(req, resp, next)=>{
         var imgAsBase64 = req.body.img;
         var email = req.body.email;
             json = {email : email};
@@ -255,6 +251,52 @@ module.exports.publicRoutes = function () {
 
         });
 
+    });
+    router.post('/uploadUserInfo', (req, resp, next)=>{
+        var username = req.params.username;
+            name = req.params.name;
+            password = req.params.password;
+            email = req.params.email;
+
+            modelUser.updateOne({ email : email }, {$set : {username : username, name : name, password : password}}, (err, response)=>{
+                if(err){
+                    throw err;
+                }
+                else{
+                    resp.json({
+                        data : response
+                    })
+                }
+            });
+    });
+
+    router.post('/deleteFromFriendList', (req, resp, next)=>{
+        var userEmail = req.params.username;
+            userFriendToDelete = req.params.userFriendToDelete;
+
+            modelUser.findOne({email : userEmail}, (err, response)=>{
+                if(err){
+                    throw err;
+                }
+                else{
+                    for(var i = response.friendList.length - 1; i >= 0; i--) {
+                        if(response.friendList[i] === userFriendToDelete) {
+                            response.friendList.splice(i, 1);
+                            modelUser.updateOne({email : userEmail}, {$set :{friendList : response.friendList}},(err, response)=>{
+                                if(err){
+                                    throw err;
+                                }
+                                else{
+                                    resp.json({
+                                        data: response
+                                    })
+                                }
+                            });
+                        }
+                    }
+                    
+                }
+            });
     });
     return router;
 
