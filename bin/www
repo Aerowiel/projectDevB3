@@ -34,8 +34,10 @@ var chatHandler = require('../utils/ChatHandler')
 
 
 io.on('connection', function (socket) {
-
-
+    io.emit('test')
+    socket.on('test2', function(){
+      console.log("pong")
+    });
 });
 
 //Chat

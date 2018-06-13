@@ -8,6 +8,7 @@ import "assets/css/material-dashboard-react.css?v=1.2.0";
 import indexRoutes from "routes/index.jsx";
 import 'bulma/css/bulma.css';
 import Dashboard from "./layouts/Dashboard/Dashboard";
+
 const hist = createBrowserHistory();
 
 ReactDOM.render(

@@ -48,17 +48,7 @@ class App extends React.Component {
     const { classes, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
-        <Sidebar
-          routes={dashboardRoutes}
-          logoText={"Creative Tim"}
-          logo={logo}
-          image={image}
-          handleDrawerToggle={this.handleDrawerToggle}
-          open={this.state.mobileOpen}
-          color="blue"
-          {...rest}
-        />
-        <div className={classes.mainPanel} ref="mainPanel">
+      <div className={classes.mainPanel} ref="mainPanel" style={{width:'100%'}}>
           <Header
             routes={dashboardRoutes}
             handleDrawerToggle={this.handleDrawerToggle}
@@ -74,6 +64,17 @@ class App extends React.Component {
           )}
           {this.getRoute() ? <Footer /> : null}
         </div>
+        {/* { <Sidebar
+          routes={dashboardRoutes}
+          logoText={"StartJob"}
+          logo={logo}
+          image={image}
+          handleDrawerToggle={this.handleDrawerToggle}
+          open={this.state.mobileOpen}
+          color="blue"
+          {...rest}
+        /> } */}
+        
       </div>
     );
   }

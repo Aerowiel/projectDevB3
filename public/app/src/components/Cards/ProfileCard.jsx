@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import profileCardStyle from "assets/jss/material-dashboard-react/profileCardStyle";
 
 function ProfileCard({ ...props }) {
-  const { classes, subtitle, title, description, footer, avatar } = props;
+  const { classes, subtitle, title, description, footer, avatar, content } = props;
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -38,6 +38,11 @@ function ProfileCard({ ...props }) {
             {description}
           </Typography>
         ) : null}
+        {content !== undefined ? (
+          <Typography className={classes.cardContent}>
+            {content}
+          </Typography>
+        ) : null}
       </CardContent>
       <CardActions className={classes.textAlign + " " + classes.cardActions}>
         {footer}
@@ -52,7 +57,8 @@ ProfileCard.propTypes = {
   subtitle: PropTypes.node,
   description: PropTypes.node,
   footer: PropTypes.node,
-  avatar: PropTypes.string
+  avatar: PropTypes.string,
+  content: PropTypes.content
 };
 
 export default withStyles(profileCardStyle)(ProfileCard);

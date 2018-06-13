@@ -25,7 +25,7 @@ function SnackbarContent({ ...props }) {
     ];
   }
   return (
-    <Snack
+    <Snack 
       message={
         <div>
           {icon !== undefined ? <props.icon className={classes.icon} /> : null}
